@@ -19,6 +19,7 @@ class Transport(BaseModel):
     shipment=models.ForeignKey("shipment", on_delete=models.CASCADE)
     createdate=models.DateField(auto_now_add=True)
     transport_done=models.BooleanField()
+    is_done=models.BooleanField()
 
     def __str__(self)->str:
         return self.Path
