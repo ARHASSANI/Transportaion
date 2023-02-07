@@ -66,6 +66,22 @@ class TransportView(APIView, BaseView):
 
     permission_classes=[IsAuthenticated]
     authentication_classes=[JWTAuthentication]
+    
+    def get(self,request):
+        try:
+            transport=Transport.objects.filter(user=request.user.id)
+            serializer=Transportserializer(transport, many=True)
+            return Response({
+                    'date': serializer.data,
+                    'message': 'transform successfully '
+                },status=status.HTTP_201_CREATED) 
+
+        except Exception as e:
+            return Response({
+                    'date':{},
+                    'message': 'something went wrong'
+            },status=status.HTTP_400_BAD_REQUEST)
+
 
     def post(self,request):
         try:            
