@@ -12,9 +12,8 @@ from django.contrib.auth.models import User
 class BaseView():
     
      
-     def post(self, request):
+    def post(self, request):
         try:
-            print(request)
             serializer=request
             if not serializer.is_valid():
                 return Response({
@@ -22,10 +21,11 @@ class BaseView():
                     'message': 'something went wrong'
                 },status=status.HTTP_400_BAD_REQUEST)
        
+            
+            serializer.save()
 
-                serializer.save()
 
-                return Response({
+            return Response({
                     'date': serializer.data,
                     'message': 'created successfully '
                 },status=status.HTTP_201_CREATED)
